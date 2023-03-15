@@ -118,6 +118,20 @@
             BuscarEstudiantePromedioMayor(){
                 var promedio = this.promedioMayor;
                 var resp=[];
+                console.log("promedio : ", promedio);
+
+                this.Estudiantes.forEach(estudiante => {
+                  var promedioEst= this.promedio(estudiante.id);
+
+                    if (promedio  < promedioEst) {
+                        console.error("PROMEDIO estudiante.id ", estudiante.id);
+                        resp.push(estudiante);
+                    }
+                });
+                console.log("resp ", resp);
+                this.Estudiantes =resp;
+/*
+                var resp=[];
                 console.log("this.Calificaciones",this.Calificaciones);
                 this.Estudiantes.forEach(function(estudiante) {   
                     var n = 0;
@@ -136,6 +150,7 @@
                 });
                 console.log("resp ", resp);
                 this.Estudiantes =resp;
+                */
             },
             eliminar(item){
                 console.log(item);
