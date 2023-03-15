@@ -1,4 +1,4 @@
-{  
+{
   "Estudiante": [
     {
       "id": 1,
@@ -20,7 +20,7 @@
       "id": 1,
       "id_estudiante": 1,
       "materia": "Matematica",
-      "nota": 56
+      "nota": 70
     },
     {
       "id": 2,

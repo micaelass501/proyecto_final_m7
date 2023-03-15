@@ -35,34 +35,28 @@
                       </tr>
                     </thead>
                     <tbody>
-                        <!-- <tr v-for="(value,key) of Calificaciones" :key="key" id="key" >
-                            <td >{{ value.id }}</td>
-                            <td >{{ value.materia }}</td>
-                            <td ><input type="text" v-model="value.nota" class="form-control"></td> 
-                            <td><button type="button" class="btn btn-primary" @click="editarNota(value)">Editar</button></td>                   
-                      </tr> -->
-                      <tr>
-                        <td>1</td>
-                        <td>Matematica</td>
-                        <td >{{verCalificacion('Matematica')}}</td>  
-                        <td><input type="text" v-model="notaMatematica" class="form-control"></td> 
-                        <td><button type="button" class="btn btn-primary" @click="editarNota('Matematica',notaMatematica)">Editar</button></td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Fisica</td>
-                        <td >{{verCalificacion('Fisica')}}</td>  
-                        <td><input type="text" v-model="notaFisica" class="form-control"></td> 
-                        <td><button type="button" class="btn btn-primary" @click="editarNota('Fisica',notaFisica)">Editar</button></td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Quimica</td>
-                        <td >{{verCalificacion('Quimica')}}</td>  
-                        <td><input type="text" v-model="notaQuimica" class="form-control"></td> 
-                        <td><button type="button" class="btn btn-primary" @click="editarNota('Quimica',notaQuimica)">Editar</button></td>
-                      </tr>
-                    </tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Matematica</td>
+                          <td >{{verCalificacion('Matematica')}}</td>  
+                          <td><input type="text" v-model="notaMatematica"  class="form-control"></td> 
+                          <td><button type="button" class="btn btn-primary" @click="editarNota('Matematica',notaMatematica)">Editar</button></td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Fisica</td>
+                          <td >{{verCalificacion('Fisica')}}</td>  
+                          <td><input type="text" v-model="notaFisica" class="form-control"></td> 
+                          <td><button type="button" class="btn btn-primary" @click="editarNota('Fisica',notaFisica)">Editar</button></td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>Quimica</td>
+                          <td >{{verCalificacion('Quimica')}}</td>  
+                          <td><input type="text" v-model="notaQuimica" class="form-control"></td> 
+                          <td><button type="button" class="btn btn-primary" @click="editarNota('Quimica',notaQuimica)">Editar</button></td>
+                        </tr>
+                      </tbody>
                   </table>
               </div>
             </div>
@@ -99,6 +93,16 @@
             }
         },
         methods: {
+
+
+getData(){
+
+   // this.notaMatematica = this.verCalificacion('Matematica');
+        //       this.notaQuimica:0,
+          //     this.notaFisica:0,
+
+},
+
             load(){
                 this.estudianteId = this.$route.params.id;                
             },
@@ -115,21 +119,7 @@
             
             getCalificaciones(){
                 this.axios.get("http://localhost:5000/Calificaciones/")
-                .then((response)=>{ 
-
-                    //this.Calificaciones = response.data;
-                    this.Calificaciones = response.data.find(x=>x.id_estudiante === this.estudianteId);
-                    /*var sw = this.estudianteId;
-                    //var resp=[];
-                    response.data.forEach(function(calificacion) {                  
-                        if (calificacion.id_estudiante === sw) {
-                            this.Calificaciones.push(calificacion);
-                        }
-                    });
-                    console.log("resp ", this.Calificaciones);*/
-                    //this.MisCalificaciones =resp; 
-                    
-                })
+                .then((response)=>{ this.Calificaciones = response.data;})
                 .catch((error)=>{console.log(error);})
             },
             verCalificacion(materia){  
@@ -143,6 +133,8 @@
                 return notasw;
             },
             editarNota(materia,nota){
+console.log(materia,nota);
+
                 let id_califica = 0;
                 let swid = this.payload.id;
                 this.Calificaciones.forEach(function(calificacion) {                    
