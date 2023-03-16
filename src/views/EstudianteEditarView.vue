@@ -56,6 +56,14 @@
                           <td><input type="text" v-model="notaQuimica" class="form-control"></td> 
                           <td><button type="button" class="btn btn-primary" @click="editarNota('Quimica',notaQuimica)">Editar</button></td>
                         </tr>
+                        
+                        <!-- <tr v-for="(value,key) of MisCalificaciones" :key="key" id="key">
+                            <td>{{value.id}}</td>
+                            <td>{{value.materia}}</td>
+                            <td >{{value.nota}}</td>  
+                            <td><input type="text" v-model="value.nota" class="form-control"></td> 
+                            <td><button type="button" class="btn btn-primary" @click="editarNota(value)">Editar</button></td>
+                        </tr> -->
                       </tbody>
                   </table>
               </div>
@@ -119,7 +127,17 @@ getData(){
             
             getCalificaciones(){
                 this.axios.get("http://localhost:5000/Calificaciones/")
-                .then((response)=>{ this.Calificaciones = response.data;})
+                .then((response)=>{ 
+                    this.Calificaciones = response.data;
+                    /*var resp=[];
+                    this.Calificaciones.forEach(calificacion => {   
+                        if (calificacion.id_estudiante === this.estudianteId) {
+                            resp.push(calificacion);
+                        }
+                    });
+                    console.log("resp ", resp);
+                    this.MisCalificaciones =resp;*/ 
+                })
                 .catch((error)=>{console.log(error);})
             },
             verCalificacion(materia){  
@@ -133,7 +151,7 @@ getData(){
                 return notasw;
             },
             editarNota(materia,nota){
-console.log(materia,nota);
+                console.log(materia,nota);
 
                 let id_califica = 0;
                 let swid = this.payload.id;
@@ -153,13 +171,13 @@ console.log(materia,nota);
             // editarNota(item){
             //     console.log(item);
 
-            //     this.CalificacionEdit.id_estudiante=item.id_estudiante;
-            //     this.CalificacionEdit.materia=item.materia;
-            //     this.CalificacionEdit.nota=parseInt(item.nota);
+            //     // this.CalificacionEdit.id_estudiante=item.id_estudiante;
+            //     // this.CalificacionEdit.materia=item.materia;
+            //     // this.CalificacionEdit.nota=parseInt(item.nota);
 
-            //     this.axios.patch("http://localhost:5000/Calificaciones/"+item.id,this.CalificacionEdit)
-            //     .then((response)=>{ console.log(response);})
-            //     .catch((error)=>{console.log(error);})
+            //     // this.axios.patch("http://localhost:5000/Calificaciones/"+item.id,this.CalificacionEdit)
+            //     // .then((response)=>{ console.log(response);})
+            //     // .catch((error)=>{console.log(error);})
             // },
             verMisCalificacion(){
                 var sw = this.estudianteId;

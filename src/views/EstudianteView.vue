@@ -58,6 +58,7 @@
         data() {
             return {
                 Estudiantes:[],
+                EstudiantesBackup:[],
                 Calificaciones:[],
                 nombreBusqueda:"",
                 Estudiantesfiltro:[],
@@ -67,7 +68,10 @@
         methods: {
             getEstudiante(){
                 this.axios.get("http://localhost:5000/Estudiante")
-                .then((response)=>{ this.Estudiantes = response.data;})
+                .then((response)=>{ 
+                    this.Estudiantes = response.data;
+                    this.EstudiantesBackup = response.data;
+                })
                 .catch((error)=>{console.log(error);})
             },
             getCalificaciones(){
@@ -87,7 +91,7 @@
             promedio(id_estudiante){
                 var n = 0;
                 var sumaNota = 0;
-                this.Calificaciones.forEach(function(calificacion) {                    
+                this.Calificaciones.forEach( calificacion =>{                    
                     if (calificacion.id_estudiante === id_estudiante) {
                         n++;
                         sumaNota = sumaNota + calificacion.nota;
@@ -105,7 +109,7 @@
             BuscarEstudiante(){
                 var buscar = this.nombreBusqueda;
                 var resp=[];
-                this.Estudiantes.forEach(function(estudiante) {   
+                this.EstudiantesBackup.forEach(estudiante => {   
                     console.log("estudiante.nombre ", estudiante.nombre, " - ", estudiante.nombre.indexOf(buscar));                 
                     if (estudiante.nombre.indexOf(buscar)==0) {
                         resp.push(estudiante);
@@ -120,7 +124,7 @@
                 var resp=[];
                 console.log("promedio : ", promedio);
 
-                this.Estudiantes.forEach(estudiante => {
+                this.EstudiantesBackup.forEach(estudiante => {
                   var promedioEst= this.promedio(estudiante.id);
 
                     if (promedio  < promedioEst) {
@@ -130,27 +134,7 @@
                 });
                 console.log("resp ", resp);
                 this.Estudiantes =resp;
-/*
-                var resp=[];
-                console.log("this.Calificaciones",this.Calificaciones);
-                this.Estudiantes.forEach(function(estudiante) {   
-                    var n = 0;
-                    var sumaNota = 0;
-                    this.Calificaciones.forEach(function(calificacion) {                    
-                        if (calificacion.id_estudiante === estudiante.id) {
-                            n++;
-                            sumaNota = sumaNota + calificacion.nota;
-                        }
-                    });
-                    var pro = sumaNota/n;
-                    if(pro > promedio)
-                    {
-                        resp.push(estudiante);
-                    }
-                });
-                console.log("resp ", resp);
-                this.Estudiantes =resp;
-                */
+
             },
             eliminar(item){
                 console.log(item);
